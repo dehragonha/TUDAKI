@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title><ui:insert name="titulo">TUDAKI 1.0</ui:insert></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0;
+              text/html; Charset=UTF-8" http-equiv="Content-Type"/>
+        <h:outputStylesheet library="css" name="estilo.css" />
+        <h:outputScript library="js" name="jquery.maskMoney.js" />
+    </h:head>
+
+    <h:body>
+        <p:ajaxStatus styleClass="ajax-status" oncomplete="configurarMoeda()">
+            <f:facet name="start">
+                <p:graphicImage library="imagens" name="loading_primefaces.gif" />
+            </f:facet>
+            <f:facet name="complete">
+                <h:outputText value="" />
+            </f:facet>
+        </p:ajaxStatus>
+
+        <header>
+
+            <div style="float: left;">
+                <h:link>AQUI VAI O LOGO</h:link>
+            </div>
+
+            <div style="float:  right; margin-right: 230px;">
+                <span style="float:left; height: 30px; line-height: 30px;margin-right: 60px;">Olá #{usuarioBean.usuarioSessao.nome}</span>
+                <h:form style="display: inline-block">
+
+                    <p:menubar styleClass="menu-sistema" >
+                        <p:submenu label="Produtos" icon="ui-icon-disk ">
+                            <p:menuitem value="Cadastrar" outcome="/produtos/cadastro.xhtml"/>
+                            <p:menuitem value="Alterar" outcome="/produtos/lista.xhtml" />
+                            <p:separator />
+                            <p:menuitem value="Verificar estoque" />
+                            <p:menuitem value="Listar" outcome="/produtos/lista.xhtml" />
+
+                        </p:submenu>
+
+                        <p:submenu label="Pedidos" icon="ui-icon-document">
+                            <p:menuitem value="Novos" />
+                            <p:menuitem value="Em andamento" />
+                            <p:menuitem value="Cancelados" />
+                        </p:submenu>
+
+                        <p:submenu label="Relatórios" icon="ui-icon-note">
+                            <p:submenu label="Produtos" >
+                                <p:menuitem value="Cadastrados" outcome="/relatorios/relatorioProdutos.xhtml"/>
+                                <p:menuitem value="Estoque" />
+                            </p:submenu>
+
+                            <p:separator />                            
+
+                            <p:submenu label="Pedidos">
+                                <p:menuitem value="Abertos" />
+                                <p:menuitem value="Em andamento" />
+                                <p:menuitem value="Cancelados" />
+                                <p:menuitem value="Todos" outcome="/relatorios/pedidos.xhtml" />
+                            </p:submenu>
+                        </p:submenu>
+
+                        <p:menuitem value="Sair" />
+
+                    </p:menubar>
+                </h:form>
+            </div>
+
+            <div style="clear: both;" />
+
+        </header>
+        
+        <div id="menu_lateral">
+            <ui:insert name="menu">
+                
+            </ui:insert>
+        </div>
+
+        <div id="conteudo">
+            <ui:insert name="corpo">
+
+            </ui:insert>
+
+        </div>
+
+        <p:separator style="margin-top: 20px;" />
+
+        <footer>
+            Desenvolvido por: <h:link>Agilles - Desenvolvimento Ágil e Seguro</h:link>
+            2014 - Todos os direitos reservados.
+
+        </footer>
+
+        <script>
+            function configurarMoeda() {
+                $(".moeda").maskMoney({showSymbol: true, symbol: "R$", decimal: ",", thousands: ".", allowZero: true });
+            }
+
+            $(document).ready(function() {
+                configurarMoeda();
+            });
+
+        </script>
+
+    </h:body>
+</html>
