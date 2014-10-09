@@ -1,0 +1,105 @@
+<ui:composition template="/template/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <ui:define name="titulo">
+        Cadastro de produtos
+       
+    </ui:define>
+
+
+
+
+    <ui:define name="corpo">
+        <h:form id="form_cadastro_produto" enctype="multipart/form-data">
+            <p:growl id="growl" autoUpdate="true" showDetail="true"/>
+
+            <p:panelGrid style="margin-top: 30px; margin-left: 30px;" id="panel">
+                <p:row>
+                    <p:column colspan="2" styleClass="ui-widget-header" style="text-align: center;">
+                        <p:outputLabel value="Cadastro de Produtos" />
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="2" styleClass="ui-widget-header">
+                        <p:spacer height="0" />
+                        <p:outputLabel value="Identificação" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column style="font-weight: bold;">
+                        <p:outputLabel value="Código: " />
+                    </p:column>
+                    <p:column colspan="3" style="font-weight: bold;">
+                        <p:outputLabel value="#{produtoBean.novaId}"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2" styleClass="ui-widget-header" >
+                        <p:outputLabel value="Dados Cadastrais" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel for="descricao" value="Descrição: "/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText id="descricao" maxlength="255" size="105" value="#{produtoBean.produto.descricao}" required="true"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel for="categoria" value="Categoria: "/>
+                    </p:column>
+                    <p:column>
+                        <p:selectOneMenu id="categoria" value="#{produtoBean.produto.categoria.id}" > 
+                            <f:selectItem itemLabel="Selecione uma Categoria" itemValue="" />
+                            <f:selectItems value="#{produtoBean.categorias}" var="categoria"
+                                           itemValue="#{categoria.id}" itemLabel="#{categoria.descricao}" >
+                            </f:selectItems>
+                        </p:selectOneMenu>
+
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Quantidade: " for="quantidade"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText maxlength="4" size="4" id="quantidade" required="true"
+                                     value="#{produtoBean.produto.qtdeEstoque}" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Valor Unitário: " for="valor"/>
+                    </p:column>
+                    <p:column>
+                        <pe:inputNumber id="valor" value="#{produtoBean.produto.valorUnitario}" 
+                                        symbol="R$" decimalSeparator="," thousandSeparator="."  styleClass="moeda"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2" styleClass="ui-widget-header" style="text-align: center;">
+                        <p:commandButton value="Gravar" id="gravar"
+                                         style="margin-left: 70px;" action="#{produtoBean.gravarProduto}" update="@all" >
+                        </p:commandButton>
+                        <p:commandButton type="reset"  value="Limpar" id="limpar" style="margin-right: 30px; margin-left: 150px;"/>
+                    </p:column>
+
+                </p:row>
+            </p:panelGrid>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

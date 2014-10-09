@@ -1,0 +1,81 @@
+<ui:composition template="/template/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    
+    <ui:define name="titulo">
+        Lista de produtos
+    </ui:define>
+
+    <ui:define name="corpo">
+        <h:form id="form">
+            <p:dataTable value="#{produtoBean.produtos}" var="produto" style="margin-bottom:20px; margin-top: 20px;width: 500px;"
+                         id="produtos" selection="#{produtoBean.produtoSelecionado}" selectionMode="single"
+                         rowKey="#{produto.id}" >
+                <f:facet name="header">
+                    #{produtoBean.empresa.razaoSocial}
+                </f:facet>
+
+
+                <p:column headerText="Código" style="width: 10%;text-align: center">
+                    <p:outputLabel value="#{produto.id}" />
+                </p:column>
+
+                <p:column headerText="Produto" style="width: 50%">
+                    <p:outputLabel value="#{produto.descricao}" />
+                </p:column>
+
+                <p:column headerText="Quantidade" style="width:20%;text-align: center" >
+                    <p:outputLabel value= "#{produto.qtdeEstoque}" />
+                </p:column>
+
+                <p:column headerText="Valor Unitário" style="width:20%;text-align: right" >
+                    <p:outputLabel value="R$ #{produto.valorUnitario}">
+                        <f:convertNumber currencyCode="#,##" currencySymbol="R$" />
+                    </p:outputLabel>
+                </p:column>
+
+                <f:facet name="footer" >
+                    <p:commandButton process="produtos" update=":form:produtoDetalhe" icon="ui-icon-search"
+                                     value="Editar" oncomplete="PF('produtoDialog').show()" />
+                </f:facet>
+
+            </p:dataTable>
+
+            <p:dialog header="Detalhes do produto" widgetVar="produtoDialog" modal="true"
+                      showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="produtoDetalhe" style="text-align: center">
+                    <p:panelGrid columns="2" rendered="#{not empty produtoBean.produtoSelecionado}" >
+
+                        <f:facet name="header">Detalhamento</f:facet>
+
+                        <h:outputText value="Código: " />
+                        <h:outputText value="#{produtoBean.produtoSelecionado.id}" />
+
+                        <p:outputLabel value="Descrição: " for="altDescricao"/>
+                        <p:inputText id="altDescricao" value="#{produtoBean.produtoSelecionado.descricao}" />
+
+                        <h:outputText value="Estoque: " />
+                        <p:inputText value="#{produtoBean.produtoSelecionado.qtdeEstoque}" />
+
+                        <h:outputText value="Valor: " />
+                        <pe:inputNumber id="valor" value="#{produtoBean.produtoSelecionado.valorUnitario}" 
+                                        symbol="R$" decimalSeparator="," thousandSeparator="." 
+                                        styleClass="moeda"/>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton action="#{produtoBean.alterarProduto}" update="@all" value="Atualizar"/>
+                        </f:facet>
+
+
+                    </p:panelGrid>
+                </p:outputPanel>
+
+            </p:dialog> 
+
+        </h:form>
+    </ui:define>
+</ui:composition>

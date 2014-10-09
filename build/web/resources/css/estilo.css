@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+body{
+
+    margin: 0px;
+    font-weight: normal;
+}
+
+header{
+    padding: 5px 0px;
+    margin-bottom: 20px;
+    height: 30px;
+    background-color: #545454;
+    color: #fff;
+    box-shadow: 0px 2px 2px #ccc;
+}
+
+header > div{
+    margin-left: 12px;
+}
+
+.ajax-status{
+    position: absolute;
+    float: right;
+    margin-bottom: 0;
+    right: 0px;
+    bottom: 0;
+}
+
+footer{
+    padding: 0px 8px;
+    margin-bottom: 10px;
+}
+
+#conteudo{
+    padding: 0px 8px;
+
+}
+
+#div_titulo{
+    text-align: center;
+    font-size: 18px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.menu-sistema{
+    border: 0px !important;
+    padding: 0px !important;
+    background: none !important;
+
+}
+
+#menu_lateral{
+    
+}

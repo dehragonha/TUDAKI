@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <application>
+        <resource-bundle>
+            <base-name>br.com.tudaki.labels</base-name>
+            <var>msgs</var>
+        </resource-bundle>
+    </application>
+    
+    
+    
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>LOGIN_OK</from-outcome>
+            <to-view-id>/home.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>LOGIN_NOK</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <factory>
+        <exception-handler-factory>
+            br.com.agilles.tudaki.utils.JsfExceptionHandlerFactory
+        </exception-handler-factory>
+    </factory>
+    
+    
+    <lifecycle>
+        <phase-listener>br.com.agilles.tudaki.controllers.AcessoMB</phase-listener>
+    </lifecycle>        
+    
+</faces-config>
