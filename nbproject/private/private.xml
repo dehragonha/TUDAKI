@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jilles/Documents/NetBeansProjects/TUDAKI/src/java/br/com/agilles/tudaki/models/beans/relatorios/RelatorioProdutos.java</file>
+            <file>file:/C:/Users/Inteligencia/Documents/NetBeansProjects/TUDAKI/web/produtos/lista.xhtml</file>
+            <file>file:/C:/Users/Inteligencia/Documents/NetBeansProjects/TUDAKI/src/java/br/com/agilles/tudaki/models/business/Pedido.java</file>
+            <file>file:/C:/Users/Inteligencia/Documents/NetBeansProjects/TUDAKI/web/template/template.xhtml</file>
+            <file>file:/C:/Users/Inteligencia/Documents/NetBeansProjects/TUDAKI/src/java/br/com/agilles/tudaki/models/beans/PedidoBean.java</file>
+            <file>file:/C:/Users/Inteligencia/Documents/NetBeansProjects/TUDAKI/src/java/br/com/agilles/tudaki/models/beans/ProdutoBean.java</file>
+            <file>file:/C:/Users/Inteligencia/Documents/NetBeansProjects/TUDAKI/web/pedidos/pedidos.xhtml</file>
         </group>
     </open-files>
 </project-private>
