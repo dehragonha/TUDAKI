@@ -5,6 +5,7 @@
  */
 package br.com.agilles.tudaki.models.beans;
 
+import br.com.agilles.tudaki.dao.PedidoDao;
 import br.com.agilles.tudaki.models.business.Pedido;
 import java.io.Serializable;
 import java.util.List;
@@ -34,6 +35,8 @@ public class PedidoBean implements Serializable {
     private Pedido pedido = new Pedido();
     private Pedido pedidoSelecionado;
     private List<Pedido> listaPedidos;
+    private PedidoDao dao = new PedidoDao();
+    
 
     public Pedido getPedido() {
         return pedido;
@@ -52,7 +55,7 @@ public class PedidoBean implements Serializable {
     }
 
     public List<Pedido> getListaPedidos() {
-        return listaPedidos;
+        return dao.listarTodos();
     }
 
     public void setListaPedidos(List<Pedido> listaPedidos) {

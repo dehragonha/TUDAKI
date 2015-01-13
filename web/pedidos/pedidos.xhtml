@@ -6,14 +6,15 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
 
-
     <ui:define name="titulo">
         Pedidos
     </ui:define>
 
     <ui:define name="corpo">
         <h:form id="form_pedidos">
-            <p:dataTable value="#{pedidoBean.listaPedidos}" var="pedido" id="pedidos">
+
+            <p:dataTable value="#{pedidoBean.listaPedidos}" var="pedido" id="pedidos"
+                         emptyMessage="Nenhum pedido localizado">
                 <f:facet name="header">
                     Lista de Pedidos
                 </f:facet>
@@ -26,10 +27,10 @@
                     <p:outputLabel value="#{pedido.cliente.nome}" />
                 </p:column>
 
-                <p:column headerText="Valor total">
+                <p:column headerText="Valor">
                     <p:outputLabel value="#{pedido.valorFinal}" />
-                </p:column
-                
+                </p:column>
+
                 <p:column headerText="Detalhar Pedido">
                     <p:commandButton icon="ui-icon-search"/>
                 </p:column>
