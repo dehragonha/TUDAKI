@@ -18,18 +18,18 @@ import java.util.List;
  */
 public class Pedido {
 
-    private double numeroPedido;
+    private long numeroPedido;
     private List<Produto> produtosPedido;
     private FormaPagto pagamento;
     private Endereco enderecoEntrega;
     private Cliente cliente;
     private double valorFinal;
 
-    public double getNumeroPedido() {
+    public long getNumeroPedido() {
         return numeroPedido;
     }
 
-    public void setNumeroPedido(double numeroPedido) {
+    public void setNumeroPedido(long numeroPedido) {
         this.numeroPedido = numeroPedido;
     }
 

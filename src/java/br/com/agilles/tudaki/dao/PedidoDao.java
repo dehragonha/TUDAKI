@@ -8,7 +8,9 @@ package br.com.agilles.tudaki.dao;
 import br.com.agilles.tudaki.models.business.Cliente;
 import br.com.agilles.tudaki.models.business.Endereco;
 import br.com.agilles.tudaki.models.business.Pedido;
+import br.com.agilles.tudaki.models.business.Produto;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -47,23 +49,25 @@ public class PedidoDao extends AbstractDao<Pedido> {
         List<Pedido> listaPedidos = new ArrayList<>();
         Cliente cliente;
         Endereco endereco;
+        List<Produto> itensPedido = new ArrayList<>();
 
         try {
             conexao = GerenciadorConexoes.pegarInstancia().abrirConexao();
 
             String queryPedidos = GerenciadorConexoes.pegarInstancia().pegarPropriedade("LISTAR_PEDIDOS");
             Statement stm = conexao.createStatement();
-            ResultSet resultado = stm.executeQuery(queryPedidos);
-            Pedido pedidoAtual;
-            
+            ResultSet resultadoGeral = stm.executeQuery(queryPedidos);
 
-            while (resultado.next()) {
+            Pedido pedidoAtual;
+
+            while (resultadoGeral.next()) {
                 pedidoAtual = new Pedido();
                 cliente = new Cliente();
                 endereco = new Endereco();
-                pedidoAtual.setNumeroPedido(resultado.getDouble("numeroPedido"));
-                pedidoAtual.setValorFinal(resultado.getDouble("valor_total"));
-                cliente.setNome(resultado.getString("nome"));
+
+                pedidoAtual.setNumeroPedido(resultadoGeral.getLong("numeroPedido"));
+                pedidoAtual.setValorFinal(resultadoGeral.getDouble("valor_total"));
+                cliente.setNome(resultadoGeral.getString("nome"));
                 endereco.setBairro("bairro");
                 endereco.setCidade("cidade");
                 endereco.setLogradouro("logradouro");
@@ -75,10 +79,11 @@ public class PedidoDao extends AbstractDao<Pedido> {
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }finally{
+        } finally {
             GerenciadorConexoes.pegarInstancia().fecharConexao(conexao);
         }
         return listaPedidos;
     }
 
+   
 }

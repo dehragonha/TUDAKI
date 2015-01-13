@@ -5,6 +5,7 @@ import br.com.agilles.tudaki.models.business.Categoria;
 import br.com.agilles.tudaki.models.business.Produto;
 import br.com.agilles.tudaki.models.beans.relatorios.RelatorioProdutos;
 import br.com.agilles.tudaki.models.business.Empresa;
+import br.com.agilles.tudaki.models.business.Pedido;
 import br.com.agilles.tudaki.models.business.Usuario;
 import br.com.agilles.tudaki.utils.SessionUtils;
 import java.sql.Connection;
@@ -247,6 +248,36 @@ public class ProdutoDao extends AbstractDao<Produto> {
         }
         return produtos;
 
+    }
+    
+     public List<Produto> detalharPedido(Pedido pedido) {
+        Connection conexao = null;
+        List<Produto> listaProdutos = new ArrayList<>();
+
+        try {
+            conexao = GerenciadorConexoes.pegarInstancia().abrirConexao();
+            String sql = GerenciadorConexoes.pegarInstancia().pegarPropriedade("LISTAR_ITENS_PEDIDO");
+
+            // atribui valor para a query
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setLong(1, pedido.getNumeroPedido());
+
+            ResultSet resultado = null;
+            if (ps.executeUpdate() > 0) {
+                resultado = ps.executeQuery();
+            }
+            Produto produtoAtual;
+
+            while (resultado.next()) {
+                produtoAtual = new Produto();
+                produtoAtual.setDescricao(resultado.getString("descricao"));
+                listaProdutos.add(produtoAtual);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaProdutos;
     }
 
 }
