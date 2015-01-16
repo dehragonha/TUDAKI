@@ -1,17 +1,19 @@
 package br.com.agilles.tudaki.models.business;
 
 /**
- * TUDAKI - SISTEMA DE GERENCIAMENTO PEDIDOS MOBILE (C) - Todos os direitos reservados 
- * 
- *  
- * @author      Jilles Ragonha
- * @category    Web
- * @copyright   Agilles
- * @updated     06/06/2014
- * 
+ * TUDAKI - SISTEMA DE GERENCIAMENTO PEDIDOS MOBILE (C) - Todos os direitos
+ * reservados
+ *
+ *
+ * @author Jilles Ragonha
+ * @category Web
+ * @copyright Agilles
+ * @updated 06/06/2014
+ *
  * @description Protudo - Objeto que define os atributos de um Produto
- * 
- **/
+ *
+ *
+ */
 public class Produto {
 
     private String descricao;
@@ -68,6 +70,10 @@ public class Produto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public String getCategoriaProduto() {
+        return categoriaProduto;
     }
 
 }

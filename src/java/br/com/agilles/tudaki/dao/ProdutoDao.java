@@ -250,9 +250,9 @@ public class ProdutoDao extends AbstractDao<Produto> {
 
     }
     
-     public List<Produto> detalharPedido(Pedido pedido) {
+     public List<Produto> itensPedido(Pedido pedido) {
         Connection conexao = null;
-        List<Produto> listaProdutos = new ArrayList<>();
+        List<Produto> listaProdutos = new ArrayList<Produto>();
 
         try {
             conexao = GerenciadorConexoes.pegarInstancia().abrirConexao();
@@ -271,6 +271,8 @@ public class ProdutoDao extends AbstractDao<Produto> {
             while (resultado.next()) {
                 produtoAtual = new Produto();
                 produtoAtual.setDescricao(resultado.getString("descricao"));
+                produtoAtual.setValorUnitario(resultado.getDouble("valor_unit"));
+                
                 listaProdutos.add(produtoAtual);
             }
 

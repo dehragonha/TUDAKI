@@ -55,10 +55,15 @@ public class PedidoDao extends AbstractDao<Pedido> {
             conexao = GerenciadorConexoes.pegarInstancia().abrirConexao();
 
             String queryPedidos = GerenciadorConexoes.pegarInstancia().pegarPropriedade("LISTAR_PEDIDOS");
-            Statement stm = conexao.createStatement();
-            ResultSet resultadoGeral = stm.executeQuery(queryPedidos);
+            Statement stmPedido = conexao.createStatement();
+            ResultSet resultadoGeral = stmPedido.executeQuery(queryPedidos);
+
+            String queryItensPedido = GerenciadorConexoes.pegarInstancia().pegarPropriedade("LISTAR_ITENS_PEDIDO");
+            PreparedStatement psItensPedido = conexao.prepareStatement(queryItensPedido);
+            ResultSet resultadoItensPedido;
 
             Pedido pedidoAtual;
+            Produto produtoAtual;
 
             while (resultadoGeral.next()) {
                 pedidoAtual = new Pedido();
@@ -66,14 +71,28 @@ public class PedidoDao extends AbstractDao<Pedido> {
                 endereco = new Endereco();
 
                 pedidoAtual.setNumeroPedido(resultadoGeral.getLong("numeroPedido"));
+                psItensPedido.setLong(1, pedidoAtual.getNumeroPedido());
+                resultadoItensPedido = psItensPedido.executeQuery();
+
+                while (resultadoItensPedido.next()) {
+                    produtoAtual = new Produto();
+                    produtoAtual.setDescricao(resultadoItensPedido.getString("descricao"));
+                    produtoAtual.setValorUnitario(resultadoItensPedido.getDouble("valor_unit"));
+                    itensPedido.add(produtoAtual);
+
+                }
+
                 pedidoAtual.setValorFinal(resultadoGeral.getDouble("valor_total"));
                 cliente.setNome(resultadoGeral.getString("nome"));
-                endereco.setBairro("bairro");
-                endereco.setCidade("cidade");
-                endereco.setLogradouro("logradouro");
+                endereco.setBairro(resultadoGeral.getString("bairro"));
+                endereco.setCidade(resultadoGeral.getString("cidade"));
+                endereco.setLogradouro(resultadoGeral.getString("logradouro"));
                 pedidoAtual.setCliente(cliente);
                 pedidoAtual.setEnderecoEntrega(endereco);
+                pedidoAtual.setProdutosPedido(itensPedido);
+
                 listaPedidos.add(pedidoAtual);
+
             }
 
         } catch (SQLException e) {
@@ -85,5 +104,4 @@ public class PedidoDao extends AbstractDao<Pedido> {
         return listaPedidos;
     }
 
-   
 }

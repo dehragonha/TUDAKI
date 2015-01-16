@@ -14,10 +14,16 @@
         <h:form id="form_pedidos">
 
             <p:dataTable value="#{pedidoBean.listaPedidos}" var="pedido" id="pedidos"
-                         emptyMessage="Nenhum pedido localizado">
+                         emptyMessage="Nenhum pedido localizado" style="margin-bottom:20px; margin-top: 20px;width: 500px;"
+                         >
+
                 <f:facet name="header">
                     Lista de Pedidos
                 </f:facet>
+
+                <p:column style="width: 16px">
+                    <p:rowToggler  />
+                </p:column>
 
                 <p:column headerText="Nº Pedido">
                     <p:outputLabel value="#{pedido.numeroPedido}"   />                  
@@ -27,13 +33,24 @@
                     <p:outputLabel value="#{pedido.cliente.nome}" />
                 </p:column>
 
-                <p:column headerText="Valor">
-                    <p:outputLabel value="#{pedido.valorFinal}" />
+                <p:column headerText="Entregar Rua">
+                    <p:outputLabel value="#{pedido.enderecoEntrega.logradouro}" />
                 </p:column>
 
-                <p:column headerText="Detalhar Pedido">
-                    <p:commandButton icon="ui-icon-search"/>
+                <p:column headerText="Bairro">
+                    <p:outputLabel value="#{pedido.enderecoEntrega.bairro}" />
                 </p:column>
+
+                <p:rowExpansion>
+                    <p:dataTable value="#{pedido.produtosPedido}" var="itens">
+                        <f:facet name="header">Pedido nº #{pedido.numeroPedido}</f:facet>
+
+                        <p:column headerText="Produto">
+                            <p:outputLabel value="#{itens.descricao}" /> 
+                        </p:column>
+                    </p:dataTable>
+                </p:rowExpansion> 
+
 
 
             </p:dataTable>
